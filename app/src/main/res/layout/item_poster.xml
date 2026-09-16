@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card"
+    android:layout_width="150dp"
+    android:layout_height="225dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/poster_placeholder"
+    android:foreground="@drawable/card_focus"
+    android:focusable="true"
+    android:focusableInTouchMode="false"
+    android:clipChildren="false">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="8dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/mf_text"
+        android:textSize="13sp"
+        android:background="#99000000" />
+</FrameLayout>

@@ -1,0 +1,20 @@
+[versions]
+media3 = "1.5.1"
+room = "2.6.1"
+coroutines = "1.9.0"
+lifecycle = "2.8.7"
+
+[libraries]
+androidx-core = { module = "androidx.core:core-ktx", version = "1.15.0" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.3.2" }
+androidx-activity = { module = "androidx.activity:activity-ktx", version = "1.9.3" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+material = { module = "com.google.android.material:material", version = "1.12.0" }
+media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
+media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+junit = { module = "junit:junit", version = "4.13.2" }

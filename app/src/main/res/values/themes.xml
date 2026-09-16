@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.Megaflix" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">@color/mf_bg</item>
+        <item name="android:colorBackground">@color/mf_bg</item>
+        <item name="colorPrimary">@color/mf_accent</item>
+    </style>
+</resources>

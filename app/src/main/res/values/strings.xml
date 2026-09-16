@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Megaflix</string>
+    <string name="empty_library">No videos found. Push some with push-test-media.sh.</string>
+</resources>

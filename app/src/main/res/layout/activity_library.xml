@@ -3,13 +3,69 @@
     android:layout_height="match_parent"
     android:background="@color/mf_bg">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/grid"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="32dp"
-        android:clipToPadding="false"
-        android:clipChildren="false" />
+        android:orientation="vertical">
+
+        <!-- Top nav bar: logo + tabs -->
+        <LinearLayout
+            android:id="@+id/nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            android:paddingTop="26dp"
+            android:paddingBottom="22dp">
+
+            <TextView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MEGAFLIX"
+                android:textColor="@color/mf_accent"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginEnd="40dp" />
+
+            <TextView
+                android:id="@+id/tab_home"
+                style="@style/NavTab"
+                android:text="Home"
+                android:textColor="@color/mf_text" />
+
+            <TextView
+                android:id="@+id/tab_shows"
+                style="@style/NavTab"
+                android:text="Shows"
+                android:textColor="@color/mf_text_dim" />
+
+            <TextView
+                android:id="@+id/tab_movies"
+                style="@style/NavTab"
+                android:text="Movies"
+                android:textColor="@color/mf_text_dim" />
+
+            <TextView
+                android:id="@+id/tab_search"
+                style="@style/NavTab"
+                android:text="Search"
+                android:textColor="@color/mf_text_dim" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rows"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:paddingTop="8dp"
+            android:paddingBottom="40dp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/empty"

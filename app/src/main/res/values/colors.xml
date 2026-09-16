@@ -1,8 +1,18 @@
 <resources>
-    <color name="mf_bg">#0B0B0F</color>
-    <color name="mf_surface">#16161D</color>
-    <color name="mf_text">#F5F5F7</color>
-    <color name="mf_text_dim">#9A9AA5</color>
+    <!-- Apple-TV-glass palette: dark neutral, translucent glass, restrained accent -->
+    <color name="mf_bg">#08080A</color>
+    <color name="mf_surface">#16161C</color>
+    <color name="mf_text">#F2F2F5</color>
+    <color name="mf_text_dim">#8E8E97</color>
     <color name="mf_accent">#E50914</color>
-    <color name="mf_focus">#FFFFFF</color>
+
+    <!-- Glass panels / chips -->
+    <color name="mf_glass">#1FFFFFFF</color>
+    <color name="mf_glass_focus">#33FFFFFF</color>
+    <color name="mf_glass_stroke">#2EFFFFFF</color>
+
+    <!-- Focus ring for posters (soft light, not hard white) -->
+    <color name="mf_focus_ring">#B3FFFFFF</color>
+
+    <color name="mf_scrim">#CC000000</color>
 </resources>

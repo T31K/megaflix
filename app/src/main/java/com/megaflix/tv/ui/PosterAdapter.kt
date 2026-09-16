@@ -3,6 +3,7 @@ package com.megaflix.tv.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -26,11 +27,17 @@ class PosterAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_poster, parent, false)
+        // Round the corners by clipping to the (rounded) background outline.
+        v.clipToOutline = true
+        v.outlineProvider = ViewOutlineProvider.BACKGROUND
         val vh = VH(v)
-        // Focus animation set once at create time — no allocation per bind.
+        // Apple-TV-style focus: lift + soft shadow + gentle scale. Set once at
+        // create time (no per-bind allocation), animated via a hardware layer.
         v.setOnFocusChangeListener { view, focused ->
-            val s = if (focused) 1.12f else 1f
-            view.animate().scaleX(s).scaleY(s).setDuration(150).start()
+            val s = if (focused) 1.10f else 1f
+            view.animate().scaleX(s).scaleY(s)
+                .translationZ(if (focused) 16f else 0f)
+                .setDuration(160).start()
             if (focused) view.bringToFront()
         }
         return vh
@@ -40,7 +47,6 @@ class PosterAdapter(
         val item = getItem(position)
         val posterRes = TEST_POSTERS[item.title]
         if (posterRes != null) {
-            // Real poster: show the art, hide the filename label (poster has its own title).
             holder.poster.setImageResource(posterRes)
             holder.title.visibility = View.GONE
         } else {

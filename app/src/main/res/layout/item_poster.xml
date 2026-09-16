@@ -1,10 +1,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card"
-    android:layout_width="150dp"
-    android:layout_height="225dp"
-    android:layout_margin="10dp"
+    android:layout_width="132dp"
+    android:layout_height="198dp"
+    android:layout_marginEnd="14dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
     android:background="@drawable/poster_placeholder"
-    android:foreground="@drawable/card_focus"
+    android:foreground="@drawable/focus_ring"
     android:focusable="true"
     android:focusableInTouchMode="false"
     android:clipChildren="false">
@@ -25,6 +27,6 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:textColor="@color/mf_text"
-        android:textSize="13sp"
+        android:textSize="12sp"
         android:background="#99000000" />
 </FrameLayout>

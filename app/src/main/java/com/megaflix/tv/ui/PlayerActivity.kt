@@ -9,6 +9,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.megaflix.tv.App
 import com.megaflix.tv.R
+import com.megaflix.tv.media.DemoMediaSource
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -36,7 +37,10 @@ class PlayerActivity : AppCompatActivity() {
     private fun preparePlayer() {
         val exo = ExoPlayer.Builder(this).build()
         findViewById<PlayerView>(R.id.player).player = exo
-        exo.setMediaItem(MediaItem.fromUri(Uri.parse(uri)))
+        // Demo cards ("demo://…") all resolve to the bundled clip.
+        val playUri = if (uri.startsWith("demo://"))
+            DemoMediaSource.bundledClipUri(this) else Uri.parse(uri)
+        exo.setMediaItem(MediaItem.fromUri(playUri))
         if (startPositionMs > 0) exo.seekTo(startPositionMs)
         exo.playWhenReady = true
         exo.prepare()

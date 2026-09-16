@@ -16,6 +16,9 @@ android {
         versionName = "0.1-phase1"
         // Phase 4 flips this to true. Phase 1 = DevMediaSource.
         buildConfigField("boolean", "USE_USB_SOURCE", "false")
+        // Self-contained demo: bundled clip + poster cards, no media push needed.
+        // The shareable GitHub APK ships with this true; real use flips it false.
+        buildConfigField("boolean", "DEMO_MODE", "true")
     }
 
     buildFeatures { buildConfig = true }

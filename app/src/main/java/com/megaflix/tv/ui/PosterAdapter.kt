@@ -3,6 +3,7 @@ package com.megaflix.tv.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -18,6 +19,7 @@ class PosterAdapter(
     override fun getItemId(position: Int): Long = getItem(position).id
 
     class VH(view: View) : RecyclerView.ViewHolder(view) {
+        val poster: ImageView = view.findViewById(R.id.poster)
         val title: TextView = view.findViewById(R.id.title)
     }
 
@@ -36,16 +38,32 @@ class PosterAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = getItem(position)
-        holder.title.text = when {
-            item.season != null && item.episode != null ->
-                "${item.title} S${item.season}E${item.episode}"
-            item.year != null -> "${item.title} (${item.year})"
-            else -> item.title
+        val posterRes = TEST_POSTERS[item.title]
+        if (posterRes != null) {
+            // Real poster: show the art, hide the filename label (poster has its own title).
+            holder.poster.setImageResource(posterRes)
+            holder.title.visibility = View.GONE
+        } else {
+            holder.poster.setImageDrawable(null) // gradient placeholder shows through
+            holder.title.visibility = View.VISIBLE
+            holder.title.text = when {
+                item.season != null && item.episode != null ->
+                    "${item.title} S${item.season}E${item.episode}"
+                item.year != null -> "${item.title} (${item.year})"
+                else -> item.title
+            }
         }
         holder.itemView.setOnClickListener { onClick(item) }
     }
 
     companion object {
+        // TEST ONLY — hardcoded poster art keyed by parsed title. Phase 2 replaces
+        // this with real TMDB poster paths stored per-video in Room.
+        private val TEST_POSTERS = mapOf(
+            "House of the Dragon" to R.drawable.poster_hotd,
+            "Space Jam" to R.drawable.poster_space_jam,
+        )
+
         private val DIFF = object : DiffUtil.ItemCallback<VideoEntity>() {
             override fun areItemsTheSame(a: VideoEntity, b: VideoEntity) = a.id == b.id
             override fun areContentsTheSame(a: VideoEntity, b: VideoEntity) = a == b

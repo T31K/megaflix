@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.megaflix.tv.App
+import com.megaflix.tv.BuildConfig
 import com.megaflix.tv.R
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -48,6 +49,8 @@ class LibraryActivity : AppCompatActivity() {
     }
 
     private fun ensurePermissionThenScan() {
+        // Demo mode plays a bundled resource — no storage permission needed.
+        if (BuildConfig.DEMO_MODE) { rescanAndObserve(); return }
         val perm = if (Build.VERSION.SDK_INT >= 33) Manifest.permission.READ_MEDIA_VIDEO
         else Manifest.permission.READ_EXTERNAL_STORAGE
         if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {

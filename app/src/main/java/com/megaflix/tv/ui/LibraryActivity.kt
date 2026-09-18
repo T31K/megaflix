@@ -44,8 +44,8 @@ class LibraryActivity : AppCompatActivity() {
 
         rowsAdapter = RowsAdapter { video ->
             startActivity(
-                Intent(this, PlayerActivity::class.java)
-                    .putExtra(PlayerActivity.EXTRA_URI, video.uri)
+                Intent(this, DetailActivity::class.java)
+                    .putExtra(DetailActivity.EXTRA_ID, video.id)
             )
         }
         rows = findViewById(R.id.rows)

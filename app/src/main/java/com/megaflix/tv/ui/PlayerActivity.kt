@@ -24,10 +24,12 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
         uri = intent.getStringExtra(EXTRA_URI) ?: run { finish(); return }
+        val fromStart = intent.getBooleanExtra(EXTRA_FROM_START, false)
         lifecycleScope.launch {
             val existing = repo.getByUri(uri)
-            // Resume unless we were within ~5s of the end (treat as finished).
-            startPositionMs = existing
+            // "Play" forces the beginning; otherwise resume unless we were within
+            // ~5s of the end (treat as finished).
+            startPositionMs = if (fromStart) 0 else existing
                 ?.takeIf { it.durationMs == 0L || it.positionMs < it.durationMs - 5000 }
                 ?.positionMs ?: 0
             preparePlayer()
@@ -61,5 +63,6 @@ class PlayerActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_URI = "extra_uri"
+        const val EXTRA_FROM_START = "extra_from_start"
     }
 }

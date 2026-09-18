@@ -1,5 +1,6 @@
 package com.megaflix.tv.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,10 @@ class RowsAdapter(
         val list: RecyclerView = view.findViewById(R.id.row_list)
     }
 
+    // Lint can't see the layout manager is HORIZONTAL (set here, not in XML), so it
+    // wrongly flags wrap_content height as the scrolling axis. The row height is
+    // fixed and the list scrolls horizontally, so setHasFixedSize is valid.
+    @SuppressLint("InvalidSetHasFixedSize")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowVH {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_row, parent, false)

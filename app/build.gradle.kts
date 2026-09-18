@@ -53,5 +53,6 @@ dependencies {
     implementation(libs.coroutines.android)
     implementation(libs.coil)
     testImplementation(libs.junit)
+    testImplementation("org.json:json:20240303")
     // Phase 4 (SafMediaSource fallback): implementation("androidx.documentfile:documentfile:1.0.1")
 }

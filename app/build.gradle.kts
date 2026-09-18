@@ -12,8 +12,8 @@ android {
         applicationId = "com.megaflix.tv"
         minSdk = 27
         targetSdk = 35
-        versionCode = 3
-        versionName = "0.3"
+        versionCode = 4
+        versionName = "0.3.1"
         // Phase 4 flips this to true. Phase 1 = DevMediaSource.
         buildConfigField("boolean", "USE_USB_SOURCE", "false")
         // Self-contained demo: bundled clip + poster cards, no media push needed.

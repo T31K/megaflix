@@ -3,4 +3,7 @@
     <string name="empty_library">No videos found. Push some with push-test-media.sh.</string>
     <string name="detail_play">▶  Play</string>
     <string name="detail_resume">Resume</string>
+    <string name="search_hint">Search movies &amp; shows…</string>
+    <string name="search_prompt">Start typing to search your library</string>
+    <string name="search_none">No matches</string>
 </resources>

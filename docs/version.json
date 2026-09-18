@@ -1,6 +1,6 @@
 {
-  "versionCode": 3,
-  "versionName": "0.3",
+  "versionCode": 4,
+  "versionName": "0.3.1",
   "apkUrl": "https://t31k.github.io/megaflix/megaflix.apk",
-  "notes": "TMDB posters + detail screen, centered nav, premium Play button, in-app updater."
+  "notes": "New: Search page — find any title from the top nav."
 }

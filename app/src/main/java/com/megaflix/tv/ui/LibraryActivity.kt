@@ -109,9 +109,12 @@ class LibraryActivity : AppCompatActivity() {
         )
         lastNavTab = home
         // Remember which tab was last focused so UP from the grid returns there.
-        // Tab filtering is Phase 2+; for now they keep D-pad focus sane.
+        // Tab filtering for Shows/Movies is still Phase 2+; Search is live.
         navTabs.forEach { tab ->
             tab.setOnFocusChangeListener { v, focused -> if (focused) lastNavTab = v as TextView }
+        }
+        findViewById<TextView>(R.id.tab_search).setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
         }
     }
 

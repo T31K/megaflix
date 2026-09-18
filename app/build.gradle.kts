@@ -19,6 +19,8 @@ android {
         // Self-contained demo: bundled clip + poster cards, no media push needed.
         // The shareable GitHub APK ships with this true; real use flips it false.
         buildConfigField("boolean", "DEMO_MODE", "true")
+        // Phase 2: TMDB metadata lookups.
+        buildConfigField("String", "TMDB_API_KEY", "\"8b6f7e9a19bd57cca4cd213917274d13\"")
     }
 
     buildFeatures { buildConfig = true }
@@ -49,6 +51,7 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
     implementation(libs.coroutines.android)
+    implementation(libs.coil)
     testImplementation(libs.junit)
     // Phase 4 (SafMediaSource fallback): implementation("androidx.documentfile:documentfile:1.0.1")
 }

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,4 +28,13 @@ interface VideoDao {
 
     @Query("SELECT uri FROM videos")
     suspend fun allUris(): List<String>
+
+    @Query("SELECT * FROM videos WHERE tmdbChecked = 0")
+    suspend fun unenriched(): List<VideoEntity>
+
+    @Update
+    suspend fun update(video: VideoEntity)
+
+    @Query("SELECT * FROM videos WHERE id = :id")
+    suspend fun byId(id: Long): VideoEntity?
 }

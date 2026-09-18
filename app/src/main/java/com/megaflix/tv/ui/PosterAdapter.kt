@@ -37,10 +37,13 @@ class PosterAdapter(
         // create time (no per-bind allocation), animated via a hardware layer.
         v.setOnFocusChangeListener { view, focused ->
             val s = if (focused) 1.10f else 1f
+            // translationZ raises the focused card above its siblings for draw
+            // order. Do NOT bringToFront() — reordering a RecyclerView child
+            // corrupts ChildHelper and crashes on the next layout when the
+            // library Flow re-emits during TMDB enrichment.
             view.animate().scaleX(s).scaleY(s)
                 .translationZ(if (focused) 16f else 0f)
                 .setDuration(160).start()
-            if (focused) view.bringToFront()
         }
         return vh
     }

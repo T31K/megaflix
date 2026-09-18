@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.activity.compose)
+    implementation(libs.tv.material)
     testImplementation(libs.junit)
     testImplementation("org.json:json:20240303")
     // Phase 4 (SafMediaSource fallback): implementation("androidx.documentfile:documentfile:1.0.1")

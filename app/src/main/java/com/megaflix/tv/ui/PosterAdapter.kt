@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.megaflix.tv.R
+import com.megaflix.tv.data.TmdbClient
 import com.megaflix.tv.data.VideoEntity
 
 class PosterAdapter(
@@ -45,10 +47,10 @@ class PosterAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = getItem(position)
-        val posterRes = TEST_POSTERS[item.title]
-        if (posterRes != null) {
-            holder.poster.setImageResource(posterRes)
+        val url = TmdbClient.posterUrl(item.posterPath)
+        if (url != null) {
             holder.title.visibility = View.GONE
+            holder.poster.load(url) { crossfade(true) }
         } else {
             holder.poster.setImageDrawable(null) // gradient placeholder shows through
             holder.title.visibility = View.VISIBLE
@@ -63,13 +65,6 @@ class PosterAdapter(
     }
 
     companion object {
-        // TEST ONLY — hardcoded poster art keyed by parsed title. Phase 2 replaces
-        // this with real TMDB poster paths stored per-video in Room.
-        private val TEST_POSTERS = mapOf(
-            "House of the Dragon" to R.drawable.poster_hotd,
-            "Space Jam" to R.drawable.poster_space_jam,
-        )
-
         private val DIFF = object : DiffUtil.ItemCallback<VideoEntity>() {
             override fun areItemsTheSame(a: VideoEntity, b: VideoEntity) = a.id == b.id
             override fun areContentsTheSame(a: VideoEntity, b: VideoEntity) = a == b

@@ -31,8 +31,36 @@ class LibraryRepository(
         return fresh.size
     }
 
+    /**
+     * Fetch TMDB art/metadata for entries that haven't been looked up yet.
+     * A row is marked tmdbChecked even on a miss so we only ever query once
+     * per file. Runs after scan; UI updates arrive via the existing Flow.
+     */
+    suspend fun enrichMissing() {
+        for (v in dao.unenriched()) {
+            val match = TmdbClient.search(
+                title = v.title,
+                year = v.year,
+                isTv = v.season != null,
+            )
+            dao.update(
+                if (match == null) v.copy(tmdbChecked = true)
+                else v.copy(
+                    tmdbChecked = true,
+                    tmdbId = match.tmdbId,
+                    posterPath = match.posterPath,
+                    backdropPath = match.backdropPath,
+                    overview = match.overview,
+                    rating = match.rating,
+                    genres = match.genres,
+                )
+            )
+        }
+    }
+
     fun observeLibrary(): Flow<List<VideoEntity>> = dao.observeAll()
     suspend fun getByUri(uri: String) = dao.getByUri(uri)
+    suspend fun byId(id: Long) = dao.byId(id)
     suspend fun saveProgress(uri: String, positionMs: Long, durationMs: Long) =
         dao.updateProgress(uri, positionMs, durationMs)
 }

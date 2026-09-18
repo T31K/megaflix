@@ -130,6 +130,9 @@ class LibraryActivity : AppCompatActivity() {
     private fun rescanAndObserve() {
         lifecycleScope.launch {
             repo.scan()
+            // Enrich concurrently: the grid renders now with placeholders, and
+            // posters/backdrops fill in as TMDB responds (observeLibrary re-emits).
+            launch { repo.enrichMissing() }
             repo.observeLibrary().collectLatest { list ->
                 val built = buildRows(list)
                 rowsAdapter.submit(built)
@@ -161,6 +164,6 @@ class LibraryActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (!BuildConfig.DEMO_MODE) lifecycleScope.launch { repo.scan() }
+        if (!BuildConfig.DEMO_MODE) lifecycleScope.launch { repo.scan(); repo.enrichMissing() }
     }
 }

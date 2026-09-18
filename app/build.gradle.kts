@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
 }
 
@@ -23,7 +24,7 @@ android {
         buildConfigField("String", "TMDB_API_KEY", "\"8b6f7e9a19bd57cca4cd213917274d13\"")
     }
 
-    buildFeatures { buildConfig = true }
+    buildFeatures { buildConfig = true; compose = true }
 
     buildTypes {
         release {
@@ -52,7 +53,14 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.coroutines.android)
     implementation(libs.coil)
+    implementation(libs.coil.compose)
     implementation(libs.constraintlayout)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.activity.compose)
     testImplementation(libs.junit)
     testImplementation("org.json:json:20240303")
     // Phase 4 (SafMediaSource fallback): implementation("androidx.documentfile:documentfile:1.0.1")

@@ -10,13 +10,13 @@
         android:clipChildren="false"
         android:clipToPadding="false">
 
-        <!-- Top nav bar: logo + tabs -->
+        <!-- Top nav bar: centered tabs (logo hidden) -->
         <LinearLayout
             android:id="@+id/nav_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:paddingStart="48dp"
             android:paddingEnd="48dp"
             android:paddingTop="26dp"
@@ -31,7 +31,8 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.06"
-                android:layout_marginEnd="40dp" />
+                android:layout_marginEnd="40dp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tab_home"

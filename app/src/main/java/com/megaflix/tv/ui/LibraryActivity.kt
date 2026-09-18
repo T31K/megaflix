@@ -18,6 +18,9 @@ import com.megaflix.tv.App
 import com.megaflix.tv.BuildConfig
 import com.megaflix.tv.R
 import com.megaflix.tv.data.VideoEntity
+import com.megaflix.tv.update.UpdateChecker
+import com.megaflix.tv.update.UpdateInfo
+import com.megaflix.tv.update.UpdateInstaller
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -53,6 +56,45 @@ class LibraryActivity : AppCompatActivity() {
         rows.adapter = rowsAdapter
 
         ensurePermissionThenScan()
+        checkForUpdate()
+    }
+
+    /** Fetch version.json off Pages; if newer, offer a one-tap self-update. */
+    private fun checkForUpdate() {
+        lifecycleScope.launch {
+            val info = UpdateChecker.check(installedVersionCode()) ?: return@launch
+            androidx.appcompat.app.AlertDialog.Builder(this@LibraryActivity)
+                .setTitle("Update available")
+                .setMessage(
+                    "Megaflix ${info.versionName} is ready to install." +
+                        (info.notes?.let { "\n\n$it" } ?: "")
+                )
+                .setPositiveButton("Update") { _, _ -> downloadAndInstall(info) }
+                .setNegativeButton("Later", null)
+                .show()
+        }
+    }
+
+    private fun downloadAndInstall(info: UpdateInfo) {
+        android.widget.Toast
+            .makeText(this, "Downloading update…", android.widget.Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            val apk = UpdateChecker.download(this@LibraryActivity, info)
+            if (apk != null) {
+                UpdateInstaller.install(this@LibraryActivity, apk)
+            } else {
+                android.widget.Toast.makeText(
+                    this@LibraryActivity, "Update download failed",
+                    android.widget.Toast.LENGTH_SHORT,
+                ).show()
+            }
+        }
+    }
+
+    /** The currently-installed versionCode, read at runtime (no BuildConfig needed). */
+    private fun installedVersionCode(): Int {
+        val pkg = packageManager.getPackageInfo(packageName, 0)
+        return if (Build.VERSION.SDK_INT >= 28) pkg.longVersionCode.toInt() else @Suppress("DEPRECATION") pkg.versionCode
     }
 
     private fun setUpNavTabs() {

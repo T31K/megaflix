@@ -8,8 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.megaflix.tv.App
 import com.megaflix.tv.R
@@ -19,21 +17,15 @@ import kotlinx.coroutines.launch
 
 /**
  * Jellyfin-style detail screen: full-bleed backdrop under a scrim, title +
- * badges + overview on the left, poster on the right, cast row at the bottom.
+ * badges + overview on the left, poster on the right.
  */
 class DetailActivity : AppCompatActivity() {
 
     private val repo by lazy { (application as App).graph.repository }
-    private val castAdapter = CastAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-
-        val castRow = findViewById<RecyclerView>(R.id.cast_row)
-        castRow.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        castRow.adapter = castAdapter
 
         val id = intent.getLongExtra(EXTRA_ID, -1)
         lifecycleScope.launch {
@@ -77,11 +69,6 @@ class DetailActivity : AppCompatActivity() {
             resume.requestFocus()
         } else {
             play.requestFocus()
-        }
-
-        val tmdbId = v.tmdbId
-        if (tmdbId != null) lifecycleScope.launch {
-            castAdapter.submit(TmdbClient.credits(tmdbId, isTv = v.season != null))
         }
     }
 

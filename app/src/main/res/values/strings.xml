@@ -3,5 +3,4 @@
     <string name="empty_library">No videos found. Push some with push-test-media.sh.</string>
     <string name="detail_play">▶  Play</string>
     <string name="detail_resume">Resume</string>
-    <string name="detail_cast">Cast &amp; Crew</string>
 </resources>
